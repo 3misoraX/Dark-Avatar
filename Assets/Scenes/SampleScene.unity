@@ -951,7 +951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325152731}
-  - component: {fileID: 1325152730}
+  - component: {fileID: 1325152732}
   m_Layer: 0
   m_Name: CardDB
   m_TagString: Untagged
@@ -959,18 +959,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1325152730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325152729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45d1d21d7afcd0b44bd34b969275240e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CardDB
 --- !u!4 &1325152731
 Transform:
   m_ObjectHideFlags: 0
@@ -986,6 +974,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325152732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325152729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45d1d21d7afcd0b44bd34b969275240e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardDB
 --- !u!1 &1465257079
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +997,7 @@ GameObject:
   - component: {fileID: 1465257080}
   - component: {fileID: 1465257082}
   - component: {fileID: 1465257081}
+  - component: {fileID: 1465257083}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -1041,7 +1042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6981132, g: 0.3425208, b: 0.33917767, a: 1}
+  m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1066,6 +1067,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465257079}
   m_CullTransparentMesh: 1
+--- !u!114 &1465257083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465257079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d174d7729305c4199df803731b0462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisplayCard
+  displayCard:
+  - id: 0
+    cardName: 
+    description: 
+    type: 0
+    energyType: 0
+    cost: 0
+  displayId: 0
+  typeList:
+  - Attack
+  - Skill
+  - Relic
+  - Curse
+  cardColor:
+  - {r: 0.69803923, g: 0.34117648, b: 0.3372549, a: 1}
+  - {r: 0.8, g: 0.7254902, b: 0.43529412, a: 1}
+  - {r: 0.30980393, g: 0.5686275, b: 0.58431375, a: 1}
+  - {r: 0.28235295, g: 0.18039216, b: 0.5647059, a: 1}
+  id: 0
+  cardName: 
+  description: 
+  type: 0
+  energyType: 0
+  cost: 0
+  cardNameText: {fileID: 143033687}
+  descriptionText: {fileID: 1316106167}
+  typeText: {fileID: 962559215}
+  costText: {fileID: 376573389}
+  cardBody: {fileID: 1465257081}
+  cardImage: {fileID: 1643114658}
 --- !u!1 &1643114656
 GameObject:
   m_ObjectHideFlags: 0

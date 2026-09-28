@@ -1,7 +1,9 @@
-using System.Security;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
-public class Cards : MonoBehaviour
+[System.Serializable]
+public class Cards
 {
     public int id;
     public string cardName;
