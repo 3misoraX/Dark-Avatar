@@ -2,13 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class DisplayCard : MonoBehaviour
 {
     //display and extra info
-    public List<Cards> displayCard = new List<Cards>();
-    public int displayId = 0;
+    public Cards card;
     [HideInInspector]
     public List<string> typeList = new List<string> { "Attack", "Skill", "Relic", "Curse" };
     [HideInInspector]
@@ -19,15 +17,7 @@ public class DisplayCard : MonoBehaviour
         new Color(79/255f, 145/255f, 149/255f, 255/255f), //spirit = cyan
         new Color(72/255f, 46/255f, 144/255f, 255/255f) //trinity = purple
     };
-
-    //containers for card info
-    public int id;
-    public string cardName;
-    public string description;
-    public char type;
-    public char energyType;
-    public int cost;
-
+    
     //displayers for card info
     public TMP_Text cardNameText;
     public TMP_Text descriptionText;
@@ -39,25 +29,11 @@ public class DisplayCard : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        displayCard[0] = CardDB.cardList[displayId];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Getting card info
-        id = displayCard[0].id;
-        cardName = displayCard[0].cardName;
-        description = displayCard[0].description;
-        type = displayCard[0].type;
-        energyType = displayCard[0].energyType;
-        cost = displayCard[0].cost;
-
         //filling card with info
-        cardNameText.text = cardName;
-        descriptionText.text = description;
-        costText.text = cost.ToString();
-        switch (type)
+        cardNameText.text = card.cardName;
+        descriptionText.text = card.description;
+        costText.text = card.cost.ToString();
+        switch (card.type)
         {
             case 'a':
                 typeText.text = typeList[0];
@@ -75,7 +51,7 @@ public class DisplayCard : MonoBehaviour
                 typeText.text = "N/A";
                 break;
         }
-        switch (energyType)
+        switch (card.energyType)
         {
             case 'b':
                 cardBody.color = cardColor[0];
@@ -92,6 +68,11 @@ public class DisplayCard : MonoBehaviour
             default:
                 cardBody.color = Color.lightGray;
                 break;
+        }
+
+        if(card.image != null)
+        {
+            cardImage.sprite = card.image;
         }
     }
 }

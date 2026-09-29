@@ -942,50 +942,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316106165}
   m_CullTransparentMesh: 1
---- !u!1 &1325152729
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1325152731}
-  - component: {fileID: 1325152732}
-  m_Layer: 0
-  m_Name: CardDB
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1325152731
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325152729}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 341.25775, y: 174.60625, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1325152732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325152729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45d1d21d7afcd0b44bd34b969275240e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CardDB
 --- !u!1 &1465257079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,14 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d174d7729305c4199df803731b0462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisplayCard
-  displayCard:
-  - id: 0
-    cardName: 
-    description: 
-    type: 0
-    energyType: 0
-    cost: 0
-  displayId: 0
+  card: {fileID: 11400000, guid: 78f8402cfec6ac148993005a7523266c, type: 2}
   typeList:
   - Attack
   - Skill
@@ -1097,12 +1046,6 @@ MonoBehaviour:
   - {r: 0.8, g: 0.7254902, b: 0.43529412, a: 1}
   - {r: 0.30980393, g: 0.5686275, b: 0.58431375, a: 1}
   - {r: 0.28235295, g: 0.18039216, b: 0.5647059, a: 1}
-  id: 0
-  cardName: 
-  description: 
-  type: 0
-  energyType: 0
-  cost: 0
   cardNameText: {fileID: 143033687}
   descriptionText: {fileID: 1316106167}
   typeText: {fileID: 962559215}
@@ -1141,10 +1084,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1465257080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.87857157}
-  m_AnchoredPosition: {x: 0.0005340576, y: 2.040001}
-  m_SizeDelta: {x: 0, y: 4.080002}
+  m_AnchorMin: {x: 0.010000001, y: 0.50357145}
+  m_AnchorMax: {x: 0.99500006, y: 0.882143}
+  m_AnchoredPosition: {x: -0.64990234, y: 0.09529114}
+  m_SizeDelta: {x: -0.84510005, y: 0.19060004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643114658
 MonoBehaviour:
@@ -1191,4 +1134,3 @@ SceneRoots:
   - {fileID: 363641447}
   - {fileID: 643902573}
   - {fileID: 643444761}
-  - {fileID: 1325152731}
