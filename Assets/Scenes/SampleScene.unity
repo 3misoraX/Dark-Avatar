@@ -1035,7 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d174d7729305c4199df803731b0462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisplayCard
-  card: {fileID: 11400000, guid: 78f8402cfec6ac148993005a7523266c, type: 2}
+  card: {fileID: 11400000, guid: 932848073410cd14681428f17c73fad6, type: 2}
   typeList:
   - Attack
   - Skill

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd58322a8785c334f995beefb0b46ca5, type: 3}
+  m_Name: DivinePunishment
+  m_EditorClassIdentifier: Assembly-CSharp::Cards
+  id: 10
+  cardName: Divine Punishment
+  description: 'Cause 2 LAMENT & 2 DOUBT '
+  type: 115
+  energyType: 115
+  cost: 3
+  image: {fileID: 21300000, guid: 2d07da573a1e87d4e904df32e986967e, type: 3}
