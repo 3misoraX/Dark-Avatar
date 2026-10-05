@@ -149,9 +149,10 @@ GameObject:
   - component: {fileID: 8434721303422315242}
   - component: {fileID: 3711926361502993784}
   - component: {fileID: 8463382457902707391}
+  - component: {fileID: 5472214282959898070}
   m_Layer: 5
   m_Name: HandCard
-  m_TagString: Untagged
+  m_TagString: Clone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisplayCard
   card: {fileID: 0}
+  deck: {fileID: 0}
   typeList:
   - Attack
   - Skill
@@ -247,6 +249,22 @@ MonoBehaviour:
   costText: {fileID: 970560909895633092}
   cardBody: {fileID: 3711926361502993784}
   cardImage: {fileID: 8217360649613339887}
+  hand: {fileID: 0}
+  cardTotal: 0
+--- !u!114 &5472214282959898070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657169993585005569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6abf9129fe71b46b29f06fec968641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hand
+  hand: {fileID: 0}
+  handCard: {fileID: 657169993585005569}
 --- !u!1 &1378640808599985737
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class DisplayCard : MonoBehaviour
 {
     //display and extra info
     public Cards card;
+    public Deck deck;
     [HideInInspector]
     public List<string> typeList = new List<string> { "Attack", "Skill", "Relic", "Curse" };
     [HideInInspector]
@@ -26,9 +27,23 @@ public class DisplayCard : MonoBehaviour
     public Image cardBody;
     public Image cardImage;
 
+    public GameObject hand;
+    public int cardTotal;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        deck = GameObject.Find("Deck").GetComponent<Deck>();
+        hand = GameObject.Find("Hand");
+        cardTotal = deck.totalCards;
+
+        if (this.CompareTag("Clone"))
+        {
+            card = deck.deck[0];
+            deck.deck.RemoveAt(0);
+            this.tag = "Untagged";
+        }
+
         //filling card with info
         cardNameText.text = card.cardName;
         descriptionText.text = card.description;
@@ -73,6 +88,16 @@ public class DisplayCard : MonoBehaviour
         if(card.image != null)
         {
             cardImage.sprite = card.image;
+        }
+    }
+
+    void Update()
+    {
+        if (this.CompareTag("Clone") && deck.deck.Count > 0)
+        {
+            card = deck.deck[0];
+            deck.deck.RemoveAt(0);
+            this.tag = "Untagged";
         }
     }
 }
