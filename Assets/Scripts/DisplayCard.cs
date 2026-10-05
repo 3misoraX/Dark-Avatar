@@ -16,7 +16,7 @@ public class DisplayCard : MonoBehaviour
         new Color(178/255f, 87/255f, 86/255f, 255/255f), //body = red
         new Color(204/255f, 185/255f, 111/255f, 255/255f), //mind = yellow
         new Color(79/255f, 145/255f, 149/255f, 255/255f), //spirit = cyan
-        new Color(72/255f, 46/255f, 144/255f, 255/255f) //trinity = purple
+        new Color(118/255f, 38/255f, 185/255f, 255/255f) //trinity = purple
     };
     
     //displayers for card info
@@ -47,7 +47,14 @@ public class DisplayCard : MonoBehaviour
         //filling card with info
         cardNameText.text = card.cardName;
         descriptionText.text = card.description;
-        costText.text = card.cost.ToString();
+        if(card.cost < 0)
+        {
+            costText.text = "X";
+        }
+        else
+        {
+            costText.text = card.cost.ToString();
+        }
         switch (card.type)
         {
             case 'a':
