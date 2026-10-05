@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 
 public class Deck : MonoBehaviour
@@ -16,6 +17,10 @@ public class Deck : MonoBehaviour
 
     public GameObject hand;
     public GameObject handCard;
+
+    public TMP_Text deckText;
+    public TMP_Text discardText;
+    public TMP_Text exileText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -88,6 +93,18 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public void Discard(Cards card)
+    {
+        discard.Add(card);
+        Destroy(card.GameObject());
+    }
+
+    public void Exile(Cards card)
+    {
+        exile.Add(card);
+        Destroy(card.GameObject());
+    }
+
     IEnumerator StartGame()
     {
         Shuffle();
@@ -100,5 +117,20 @@ public class Deck : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             Instantiate(handCard, transform.position, transform.rotation);
         }
+    }
+
+    public void EndGame()
+    {
+        deck.AddRange(discard);
+        deck.AddRange(exile);
+        discard.Clear();
+        exile.Clear();
+    }
+
+    void Update()
+    {
+        deckText.text = deck.Count.ToString();
+        discardText.text = discard.Count.ToString();
+        exileText.text = exile.Count.ToString();
     }
 }
