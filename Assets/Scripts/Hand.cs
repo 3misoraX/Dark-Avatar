@@ -6,7 +6,7 @@ public class Hand : MonoBehaviour
     public GameObject handCard;
     
     // Update is called once per frame
-    void Update()
+    void Start()
     {
         hand = GameObject.Find("Hand");
         handCard.transform.SetParent(hand.transform);
