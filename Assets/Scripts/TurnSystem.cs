@@ -76,7 +76,7 @@ public class TurnSystem : MonoBehaviour
             else
             {
                 faithMeter.SetActive(true);
-                faithMeter.GetComponentInChildren<TMP_Text>().text = faithCounter.ToString();
+                faithMeter.GetComponentInChildren<TMP_Text>().text = "Faith: " + faithCounter.ToString();
             }
 
             foreach(Effect fx in activePlayerEffects)
@@ -95,28 +95,28 @@ public class TurnSystem : MonoBehaviour
         {
             activeTurn = false;
             deck.DiscardHand();
-            foreach(Effect fx in activePlayerEffects)
+            for(int i = 0; i< activePlayerEffects.Count; i++)
             {
-                if(fx.effectName == "condemn")
+                if (activePlayerEffects[i].effectName == "condemn")
                 {
-                    Effects.Condemn(PlayerHealth.staticHp, fx.effectCount);
-                    fx.countdown();
+                    Effects.Condemn(PlayerHealth.staticHp, activePlayerEffects[i].effectCount);
+                    activePlayerEffects[i].countdown();
                 }
-                else if(fx.effectName == "spirit chains")
+                else if (activePlayerEffects[i].effectName == "spirit chains")
                 {
-                    foreach(Effect en in activePlayerEffects)
+                    for(int o = 0; o < activePlayerEffects.Count; o++)
                     {
-                        if(fx.effectName == "condemn"||fx.effectName == "devotion")
+                        if (activePlayerEffects[o].effectName == "condemn" || activePlayerEffects[o].effectName == "devotion")
                         {
-                            activePlayerEffects.Remove(fx);
+                            activePlayerEffects.RemoveAt(o);
                         }
                     }
                 }
 
-                fx.countdown();
-                if(fx.effectCount <= 0)
+                activePlayerEffects[i].countdown();
+                if (activePlayerEffects[i].effectCount <= 0)
                 {
-                    activePlayerEffects.Remove(fx);
+                    activePlayerEffects.RemoveAt(i);
                 }
             }
             EnemyTurns();
@@ -134,23 +134,23 @@ public class TurnSystem : MonoBehaviour
             {
                 maxMana++;
             }
-            foreach(Effect fx in activePlayerEffects)
+            for(int i = 0; i < activePlayerEffects.Count; i++)
             {
-                if(fx.effectName == "cross")
+                if (activePlayerEffects[i].effectName == "cross")
                 {
-                    Effects.Cross(maxMana, fx.effectCount);
-                    activePlayerEffects.Remove(fx);
+                    Effects.Cross(maxMana, activePlayerEffects[i].effectCount);
+                    activePlayerEffects.RemoveAt(i);
                     break;
                 }
-                else if(fx.effectName == "occult book")
+                else if (activePlayerEffects[i].effectName == "occult book")
                 {
                     TurnSystem.faithCounter++;
                 }
-                else if(fx.effectName == "ceremonial dagger")
+                else if (activePlayerEffects[i].effectName == "ceremonial dagger")
                 {
                     DagaCeremonial();
                 }
-                else if(fx.effectName == "spirit chains")
+                else if (activePlayerEffects[i].effectName == "spirit chains")
                 {
                     int x = soulMana;
                     if (UseMana(soulMana, 's') == true)
@@ -189,27 +189,21 @@ public class TurnSystem : MonoBehaviour
     public bool UseMana(int amount, char energyType)
     {
         bool activeAltar = false;
-        foreach(Effect fx in activePlayerEffects)
+        for (int i = 0; i < activePlayerEffects.Count; i++)
         {
-            if(fx.effectName == "cursed altar")
+            if (activePlayerEffects[i].effectName == "cursed altar")
             {
                 activeAltar = true;
             }
         }
-        if(activeAltar)
-        {
             if (energyType == 'b')
             {
-                if (bodyMana - amount > 0)
+                if (bodyMana - amount >= 0)
                 {
-                    if(amount < 0)
-                    {
-                        amount = bodyMana;
-                    }
                     bodyMana -= amount;
                     return true;
                 }
-                else
+                else if (activeAltar && bodyMana - amount < 0)
                 {
                     PlayerHealth.staticHp -= amount;
                     return true;
@@ -217,137 +211,139 @@ public class TurnSystem : MonoBehaviour
             }
             else if (energyType == 's')
             {
-                if (soulMana - amount > 0)
+                if (soulMana - amount >= 0)
                 {
-                    if (amount < 0)
-                    {
-                        amount = soulMana;
-                    }
                     soulMana -= amount;
                     return true;
                 }
-                else
+                else if (activeAltar && soulMana - amount < 0)
                 {
-                    PlayerHealth.staticHp -= amount;
-                    return true;
-                }
-            }
-            else if (energyType == 'm')
-            {
-                if (mindMana - amount < 0)
-                {
-                    foreach (Effect fx in activePlayerEffects)
                     {
-                        if (fx.effectName == "energy seal")
+                        PlayerHealth.staticHp -= amount;
+                        return true;
+                    }
+                }
+                else if (energyType == 'm')
+                {
+                    if (mindMana - amount < 0)
+                    {
+                        for (int i = 0; i < activePlayerEffects.Count; i++)
                         {
-                            if (bodyMana - amount < 0)
+                            if (activePlayerEffects[i].effectName == "energy seal")
                             {
-                                if (soulMana - amount > 0)
+                                if (bodyMana - amount < 0)
                                 {
-                                    if (amount < 0)
+                                    if (soulMana - amount >= 0)
                                     {
-                                        amount = mindMana;
+                                        soulMana -= amount;
+                                        return true;
                                     }
-                                    soulMana -= amount;
-                                    return true;
+                                    else
+                                    {
+                                        if (activeAltar)
+                                        {
+                                            PlayerHealth.staticHp -= amount;
+                                            return true;
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    PlayerHealth.staticHp -= amount;
+                                    bodyMana -= amount;
                                     return true;
                                 }
                             }
-                            else
-                            {
-                                bodyMana -= amount;
-                                return true;
-                            }
                         }
                     }
-                }
-                else
-                {
-                    mindMana -= amount;
-                    return true;
-                }
-            }
-            else if (energyType == 't')
-            {
-                if (bodyMana - amount > 0 && soulMana - amount > 0 && mindMana - amount > 0)
-                {
-                    bodyMana -= amount;
-                    soulMana -= amount;
-                    mindMana -= amount;
-                    return true;
-                }
-                else
-                {
-                    PlayerHealth.staticHp -= (amount*3);
-                    return true;
-                }
-            }
-            return false;
-        }
-        else
-        {
-            if(energyType == 'b')
-            {
-                if(bodyMana-amount > 0)
-                {
-                    bodyMana -= amount;
-                    return true;
-                }
-            }
-            else if(energyType == 's')
-            {
-                if (soulMana - amount > 0)
-                {
-                    soulMana -= amount;
-                    return true;
-                }
-            }
-            else if(energyType == 'm')
-            {
-                if (mindMana - amount < 0)
-                {
-                    foreach (Effect fx in activePlayerEffects)
+                    else if (mindMana - amount >= 0)
                     {
-                        if (fx.effectName == "energy seal")
+                        mindMana -= amount;
+                        return true;
+                    }
+                }
+                else if (energyType == 't')
+                {
+                    if (bodyMana - amount > 0 && soulMana - amount > 0 && mindMana - amount > 0)
+                    {
+                        bodyMana -= amount;
+                        soulMana -= amount;
+                        mindMana -= amount;
+                        return true;
+                    }
+                    else
+                    {
+                        if (activeAltar)
                         {
-                            if(bodyMana-amount < 0)
-                            {
-                                if (soulMana - amount > 0)
-                                {
-                                    soulMana -= amount;
-                                    return true;
-                                }
-                            }
-                            else
-                            {
-                                bodyMana -= amount;
-                                return true;
-                            }
+                            PlayerHealth.staticHp -= (amount * 3);
+                            return true;
                         }
                     }
                 }
-                else
-                {
-                    mindMana -= amount;
-                    return true;
-                }
+                Debug.Log("Not Enough Mana");
+                return false;
             }
-            else if(energyType == 't')
+            else
             {
-                if(bodyMana-amount > 0 && soulMana-amount > 0 && mindMana - amount > 0)
+                if (energyType == 'b')
                 {
-                    bodyMana -= amount;
-                    soulMana -= amount;
-                    mindMana -= amount;
-                    return true;
+                    if (bodyMana - amount > 0)
+                    {
+                        bodyMana -= amount;
+                        return true;
+                    }
+                }
+                else if (energyType == 's')
+                {
+                    if (soulMana - amount > 0)
+                    {
+                        soulMana -= amount;
+                        return true;
+                    }
+                }
+                else if (energyType == 'm')
+                {
+                    if (mindMana - amount < 0)
+                    {
+                        foreach (Effect fx in activePlayerEffects)
+                        {
+                            if (fx.effectName == "energy seal")
+                            {
+                                if (bodyMana - amount < 0)
+                                {
+                                    if (soulMana - amount > 0)
+                                    {
+                                        soulMana -= amount;
+                                        return true;
+                                    }
+                                }
+                                else
+                                {
+                                    bodyMana -= amount;
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        mindMana -= amount;
+                        return true;
+                    }
+                }
+                else if (energyType == 't')
+                {
+                    if (bodyMana - amount > 0 && soulMana - amount > 0 && mindMana - amount > 0)
+                    {
+                        bodyMana -= amount;
+                        soulMana -= amount;
+                        mindMana -= amount;
+                        return true;
+                    }
                 }
             }
+
+        
             return false;
-        }
     }
 
     public static void ApplyEffect(string effect, int amount)

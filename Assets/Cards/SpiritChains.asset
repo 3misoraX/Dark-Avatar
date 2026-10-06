@@ -18,5 +18,5 @@ MonoBehaviour:
     away at the end of the turn
   type: 114
   energyType: 115
-  cost: 2
+  cost: 1
   image: {fileID: 21300000, guid: 9dd573575ce94ab4a844fef66efbc92e, type: 3}

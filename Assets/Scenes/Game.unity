@@ -2179,6 +2179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropZone
   isParent: 0
+  turns: {fileID: 0}
 --- !u!114 &1184246868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,7 +2256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e89e312c1ae674894f4c1b9f2e3e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  hp: 100
+  hp: 60
   attackId: 0
   turns: {fileID: 0}
   dmg: 3

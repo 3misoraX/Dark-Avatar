@@ -32,6 +32,8 @@ public class DisplayCard : MonoBehaviour
     public int cardTotal;
     public int curseActive = 0;
 
+    public TurnSystem turns;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -98,6 +100,8 @@ public class DisplayCard : MonoBehaviour
         {
             cardImage.sprite = card.image;
         }
+
+        turns = GameObject.Find("TurnSystem").GetComponent<TurnSystem>();
     }
 
     public void Use(EnemyAI ai)
@@ -197,6 +201,26 @@ public class DisplayCard : MonoBehaviour
 
     void Update()
     {
+        if(card.cost <= 0)
+        {
+            if(card.energyType == 'b')
+            {
+                card.cost = turns.bodyMana;
+            }
+            else if(card.energyType == 's')
+            {
+                card.cost = turns.soulMana;
+            }
+            else if(card.energyType == 'm')
+            {
+                card.cost = turns.mindMana;
+            }
+            else
+            {
+                card.cost = turns.maxMana;
+            }
+        }
+
         if(curseActive != 1)
         {
             PlayerHealth.doubleDmgActive = false;
