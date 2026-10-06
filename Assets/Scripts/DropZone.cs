@@ -1,4 +1,5 @@
-using System.Data;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,11 +13,20 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         {
             isParent = true;
         }
+        else
+        {
+            isParent = false;
+        }
     }
     public void OnDrop(PointerEventData data)
     {
         Debug.Log("drop");
-        data.pointerDrag.transform.SetParent(this.transform);
+        if (GameObject.Find("TurnSystem").GetComponent<TurnSystem>().UseMana(data.pointerDrag.GetComponent<DisplayCard>().card.cost, data.pointerDrag.GetComponent<DisplayCard>().card.energyType) == true)
+        {
+            data.pointerDrag.transform.SetParent(this.transform);
+            transform.GetChild(0).GetComponent<DisplayCard>().Use(gameObject.GetComponent<EnemyAI>());
+            GameObject.Find("Deck").GetComponent<Deck>().Exile(transform.GetChild(0).gameObject);
+        }
     }
 
     public void OnPointerEnter(PointerEventData data)

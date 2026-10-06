@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cards
   id: 22
   cardName: Thorn Whip
-  description: First ATTACK each turn deals 1 LAMENT
+  description: Every ATTACK deals 1 LAMENT
   type: 114
   energyType: 98
   cost: 3

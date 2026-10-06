@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd58322a8785c334f995beefb0b46ca5, type: 3}
   m_Name: BloodSacrifice
   m_EditorClassIdentifier: Assembly-CSharp::Cards
-  id: 28
+  id: 25
   cardName: Blood Sacrifice
   description: Everyone gains a random effect each turn
   type: 99

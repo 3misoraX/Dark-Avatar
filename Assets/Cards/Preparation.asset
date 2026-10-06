@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cards
   id: 14
   cardName: Preparation
-  description: Draw 2 extra cards next turn
+  description: Draw 3 Cards
   type: 115
   energyType: 98
   cost: 3

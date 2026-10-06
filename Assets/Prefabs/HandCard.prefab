@@ -253,6 +253,10 @@ MonoBehaviour:
   cardImage: {fileID: 8217360649613339887}
   hand: {fileID: 0}
   cardTotal: 0
+  curseActive: 0
+  UseCard:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5472214282959898070
 MonoBehaviour:
   m_ObjectHideFlags: 0

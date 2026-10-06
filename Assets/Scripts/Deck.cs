@@ -55,9 +55,9 @@ public class Deck : MonoBehaviour
         }
     }
 
-    public IEnumerator DrawNewHand(int extra = 0)
+    public IEnumerator DrawNewHand()
     {
-        int count = handSize + extra;
+        int count = handSize;
         if (count > 12)
             count = 12;
 
@@ -93,16 +93,10 @@ public class Deck : MonoBehaviour
         }
     }
 
-    public void Discard(Cards card)
+    public void Exile(GameObject card)
     {
-        discard.Add(card);
-        Destroy(card.GameObject());
-    }
-
-    public void Exile(Cards card)
-    {
-        exile.Add(card);
-        Destroy(card.GameObject());
+        exile.Add(card.GetComponent<DisplayCard>().card);
+        Destroy(card);
     }
 
     IEnumerator StartGame()
