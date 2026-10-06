@@ -180,10 +180,8 @@ public class TurnSystem : MonoBehaviour
                 int x = UnityEngine.Random.Range(0, effectList.Length);
                 ai.ApplyEffect(effectList[x], 1);
             }
-            ai.MyTurn();
+            ai.StartCoroutine(ai.MyTurn());
         }
-
-        TurnChange();
     }
 
     public bool UseMana(int amount, char energyType)

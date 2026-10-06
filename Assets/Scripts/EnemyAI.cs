@@ -1,11 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
 using TMPro;
 
 public class EnemyAI : MonoBehaviour
 {
+    public TMP_Text actionText;
     public int hp;
     private int previousHp;
     public int attackId;
@@ -13,9 +16,14 @@ public class EnemyAI : MonoBehaviour
     public int dmg;
     public static bool doubleDmgActive = false;
     public bool usesEffect;
+    string[] selfFx = {"bless", "devotion"};
+    string[] opFx = {"doubt", "lament", "condemn", "dogma", "cross"};
     public int skill1Objective;
 
     public int skill2Objective;
+
+    public int numOfAttacks;
+    int rand;
 
     [Serializable]
     public class Effect
@@ -45,11 +53,14 @@ public class EnemyAI : MonoBehaviour
     public Effect skill2Effect;
     public Effect attackEffect;
     public TMP_Text hpText;
+    public bool activeTurn;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         turns = GameObject.Find("TurnSystem").GetComponent<TurnSystem>();
+
+        actionText.text = "";
     }
 
     private void Update()
@@ -57,29 +68,48 @@ public class EnemyAI : MonoBehaviour
         hpText.text = "Opponent HP: " + hp;
     }
 
-    public void MyTurn()
+    public IEnumerator MyTurn()
     {
-        attackId = UnityEngine.Random.Range(0, 3); // 0 = main attack, 1 = Skill 1, 2 = skill 2/Secondary attack
-        switch (attackId)
+        activeTurn = true;
+        actionText.text = "Enemy's turn";
+        numOfAttacks = UnityEngine.Random.Range(1, 4);
+        for(int i = 0; i < numOfAttacks; i++)
         {
-            case 0:
-                Attack(attackEffect.effectName, attackEffect.effectCount);
-                break;
-            case 1:
-                Skill(skill1Objective, skill1Effect);
-                break;
-            case 2: 
-                if(skill2Objective >= 3)
-                {
+            attackId = UnityEngine.Random.Range(0, 3); // 0 = main attack, 1 = Skill 1, 2 = skill 2/Secondary attack
+            switch (attackId)
+            {
+                case 0:
+                    attackEffect.effectName = opFx[UnityEngine.Random.Range(0, opFx.Length)];
+                    attackEffect.effectCount = UnityEngine.Random.Range(0, 4);
+                    Attack(attackEffect.effectName, attackEffect.effectCount);
+                    break;
+                case 1:
+                    skill1Effect.effectName = selfFx[UnityEngine.Random.Range(0, selfFx.Length)];
+                    skill1Effect.effectCount = UnityEngine.Random.Range(0, 4);
+                    Skill(0, skill1Effect);
+                    break;
+                case 2:
+                    do
+                    {
+                        rand = UnityEngine.Random.Range(1, 4);
+                    } while (rand != 1);
 
-                    Attack(skill2Effect.effectName, skill2Effect.effectCount);
-                }
-                else
-                {
-                    Skill(skill2Objective, skill2Effect);
-                }
-                break;
+                    skill2Objective = rand;
+                    skill2Effect.effectName = opFx[UnityEngine.Random.Range(0, opFx.Length)];
+                    skill2Effect.effectCount = UnityEngine.Random.Range(0, 4);
+                    if(skill2Objective >= 3)
+                    {
+                        Attack(skill2Effect.effectName, skill2Effect.effectCount);
+                    }
+                    else
+                    {
+                        Skill(skill2Objective, skill2Effect);
+                    }
+                    break;
+            }
+            yield return new WaitForSeconds(1f);
         }
+        
 
         for(int i = 0; i < activeEffects.Count; i++)
         {
@@ -89,6 +119,10 @@ public class EnemyAI : MonoBehaviour
                 activeEffects.RemoveAt(i);
             }
         }
+
+        activeTurn = false;
+        actionText.text = "Your Turn";
+        turns.TurnChange();
     }
 
     void Attack(string effectToApply = null, int count = 0)
@@ -117,6 +151,9 @@ public class EnemyAI : MonoBehaviour
         }
 
         PlayerHealth.TakeDamage(dmg);
+
+
+        actionText.text = "Enemy attacks, Deals " + dmg.ToString() + "dmg";  
     }
 
     void Skill(int objective, Effect effectToApply) //0 = self buff, 1 = ally buff, 2 = player debuff
@@ -136,6 +173,8 @@ public class EnemyAI : MonoBehaviour
                 break;
             case 2:
                 TurnSystem.ApplyEffect(effectToApply.effectName, effectToApply.effectCount);
+
+                actionText.text = "You get " + effectToApply.effectCount.ToString()+ " " + effectToApply.effectName;
                 break;
             default:
                 return;
@@ -153,6 +192,8 @@ public class EnemyAI : MonoBehaviour
             }
         }
         activeEffects.Add(new Effect(effect, amount));
+
+        actionText.text = "Enemy gets " + amount.ToString() + " " + effect;
     }
 
     public void TakeDamage(int damage)
